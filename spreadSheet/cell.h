@@ -16,12 +16,12 @@ public:
     Cell();
     Cell(const Cell& rhv);
     Cell(Cell&& rhv) noexcept;
-    Cell(int val);
-    Cell(std::string val);
-    Cell(double val);
-    Cell(char val);
-    Cell(bool val);
-    Cell(const std::vector<int>& val);
+    explicit Cell(int val);
+    explicit Cell(std::string val);
+    explicit Cell(double val);
+    explicit Cell(char val);
+    explicit Cell(bool val);
+    explicit Cell(const std::vector<int>& val);
 public:
     const Cell& operator=(const Cell& rhv);  
     const Cell& operator=(Cell&& rhv) noexcept;
