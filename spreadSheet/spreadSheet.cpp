@@ -317,7 +317,7 @@ void SpreadSheet::rotate(size_t count)
     else if(count % 4 == 2)
     {
         rotate_right();
-	rotate_right();
+	    rotate_right();
     }
     else 
     {
@@ -327,43 +327,83 @@ void SpreadSheet::rotate(size_t count)
 
 void SpreadSheet::rotate_left()
 {
-    size_t size = m_row;
-    if(m_row != m_col)
+    if(m_row == m_col)
     {
-        size = m_row > m_col ? m_col : m_row;
-    }
-
-    for(size_t i = 0; i < size/2; ++i)
-    {
-        for(size_t j = i; j < size - i - 1; ++j)
+        size_t size = m_row;
+        for(size_t i = 0; i < size/2; ++i)
         {
-            Cell tmp = m_board[i][j];
-            m_board[i][j] = m_board[j][size - i - 1];
-            m_board[j][size - 1 - i] = m_board[size - 1 - i][size - 1 - j];
-            m_board[size - 1 - i][size - 1 - j] = m_board[size - j - 1][i];
-            m_board[size - 1 - j][i] = tmp;
+            for(size_t j = i; j < size - i - 1; ++j)
+            {
+                Cell tmp = m_board[i][j];
+                m_board[i][j] = m_board[j][size - i - 1];
+                m_board[j][size - 1 - i] = m_board[size - 1 - i][size - 1 - j];
+                m_board[size - 1 - i][size - 1 - j] = m_board[size - j - 1][i];
+                m_board[size - 1 - j][i] = tmp;
+            }
         }
+    }
+    else
+    {
+        size_t new_row = m_col;
+        size_t new_col = m_row;
+        Cell **new_board = new Cell*[new_row];
+        for(size_t i = 0; i < new_row; ++i)
+        {
+            new_board[i] = new Cell[new_col];
+        }
+
+        for(size_t i = 0; i < new_row; ++i)
+        {
+            for(size_t j = 0; j < new_col; ++j)
+            {
+                new_board[i][j] = m_board[j][m_col - 1 - i];
+            }
+        }
+        clear();
+        m_board = new_board;
+        m_col = new_col;
+        m_row = new_row;
     }
 }
 
 void SpreadSheet::rotate_right()
 {    
-    size_t size = m_row;
-    if(m_row != m_col)
+    if(m_row == m_col)
     {
-        size = m_row > m_col ? m_col : m_row;
-    }
-
-    for(size_t i = 0; i < size/2; ++i)
-    {
-        for(size_t j = i; j < size - i - 1; ++j)
+        size_t size = m_row;
+        for(size_t i = 0; i < size/2; ++i)
         {
-            Cell tmp = m_board[i][j];
-            m_board[i][j] = m_board[size - 1 - j][i];
-            m_board[size - 1 - j][i] = m_board[size - 1 - i][size - 1 - j];
-            m_board[size - 1 - i][size - 1 - j] = m_board[j][size -1 - i];
-            m_board[j][size - 1 - i] = tmp;
+            for(size_t j = i; j < size - i - 1; ++j)
+            {
+                Cell tmp = m_board[i][j];
+                m_board[i][j] = m_board[size - 1 - j][i];
+                m_board[size - 1 - j][i] = m_board[size - 1 - i][size - 1 - j];
+                m_board[size - 1 - i][size - 1 - j] = m_board[j][size -1 - i];
+                m_board[j][size - 1 - i] = tmp;
+            }
         }
+    }
+    else
+    {
+        size_t new_row = m_col;
+        size_t new_col = m_row;
+        Cell **new_board = new Cell*[new_row];
+        for(size_t i = 0; i < new_row; ++i)
+        {
+            new_board[i] = new Cell[new_col];
+        }
+
+        for(size_t i = 0; i < new_row; ++i)
+        {
+            for(size_t j = 0; j < new_col; ++j)
+            {
+                new_board[i][j] = m_board[m_row - 1 - j][i];
+            }
+        }
+        clear();
+        m_board = new_board;
+        m_col = new_col;
+        m_row = new_row;
     }
 }
 
