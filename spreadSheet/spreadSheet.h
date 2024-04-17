@@ -22,7 +22,7 @@ public:
 	SpreadSheet(const SpreadSheet& rhv);
 	SpreadSheet(SpreadSheet&& rhv) noexcept;
 	SpreadSheet(size_t row, size_t col);
-	SpreadSheet(size_t size);
+	explicit SpreadSheet(size_t size);
 	~SpreadSheet();
 public:
 	const SpreadSheet& operator=(const SpreadSheet& rhv);
